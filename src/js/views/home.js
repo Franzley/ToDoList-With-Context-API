@@ -1,7 +1,7 @@
 //IMPORTS
 import React from "react";
 import "../../styles/home.css";
-import { useContext, createContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import Inputs from "./Inputs.js";
 
@@ -24,27 +24,18 @@ export const Home = () => {
   //Add a new task
   function addNewTask(e) {
     if (e.key === "Enter") {
-      setTasks(actions.todoList(textEntered))
+      actions.todoList(textEntered)
+      setTasks(store.list)
       setTextEntered("");
     }
   }
 
   //Delete task by id value
   function deleteTask(id) {
-    setTasks(actions.deleteTask(id))
+    actions.deleteTask(id)
+    setTasks(store.list)
   }
 
-  return (
-    <Context.Provider
-      value={{textEntered, tasks, deleteTask, addNewTask, inputValue }}
-    >
-      <ToDos />
-    </Context.Provider>
-  );
-};
-
-const ToDos = () => {
-  const value = useContext(Context);
 
   return (
     <div>
@@ -54,29 +45,29 @@ const ToDos = () => {
           <span className="me-3">Tasks</span>
           <input
             type="text"
-            onChange={value.inputValue}
-            onKeyDown={value.addNewTask}
-            value={value.textEntered}
+            onChange={inputValue}
+            onKeyDown={addNewTask}
+            value={textEntered}
           />
         </div>
 
         <div className="todos-container-body flex-grow-1">
           <ul>
-            {value.tasks.map((task, index) => (
+            {tasks.map((task, index) => (
               <Inputs
                 key={index}
                 id={index}
                 task={task}
-                onDelete={value.deleteTask}
+                onDelete={deleteTask}
               />
             ))}
           </ul>
         </div>
 
         <div className="flex-grow-1">
-           {value.tasks.length === 0
+           {tasks.length === 0
         ? "No tasks, add a task"
-        : `Number of Tasks: ${value.tasks.length}`}
+        : `Number of Tasks: ${tasks.length}`}
         </div>
       </div>
     </div>

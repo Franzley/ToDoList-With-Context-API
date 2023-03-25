@@ -51,7 +51,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			todoList: (todo) => {
 				const store = getStore();
 				setStore({ list: [...store.list, todo]})
-				return store.list
 			},
 			deleteTask: (id) => {
 				const store = getStore();
@@ -60,7 +59,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return index != id
 				})
 			})
-				return store.list
 			}
 		}
 	};
