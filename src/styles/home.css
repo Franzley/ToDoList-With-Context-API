@@ -49,8 +49,11 @@ li:last-child{
 li:hover span{
     visibility: visible;
 }
-input{
+form, input{
     border: none;
     width: 100%;
     border-top-right-radius: 1.5rem !important;
+}
+input{
+    height: 100%;
 }

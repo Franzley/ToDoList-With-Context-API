@@ -20,10 +20,9 @@ export const Home = () => {
 
   //Add a new task
   function addNewTask(e) {
-    if (e.key === "Enter") {
-      actions.todoList(textEntered);
-      setTextEntered("");
-    }
+    e.preventDefault();
+    actions.todoList(textEntered);
+    setTextEntered("");
   }
 
   //Delete task by id value
@@ -37,12 +36,13 @@ export const Home = () => {
       <div className="todos-container d-flex flex-column">
         <div className="todos-container-header d-flex flex-row">
           <span className="me-3">Tasks</span>
-          <input
-            type="text"
-            onChange={inputValue}
-            onKeyDown={addNewTask}
-            value={textEntered}
-          />
+          <form onSubmit={addNewTask}>
+            <input
+              type="text"
+              onChange={inputValue}
+              value={textEntered}
+            />
+          </form>
         </div>
 
         <div className="todos-container-body flex-grow-1">
