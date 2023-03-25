@@ -5,15 +5,12 @@ import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import Inputs from "./Inputs.js";
 
-
 export const Home = () => {
   //Set Context
   const { store, actions } = useContext(Context);
 
   //Initialize States
   const [textEntered, setTextEntered] = useState("");
-  const [tasks, setTasks] = useState(store.list);
-  
 
   //Update Input value
   function inputValue(e) {
@@ -24,18 +21,15 @@ export const Home = () => {
   //Add a new task
   function addNewTask(e) {
     if (e.key === "Enter") {
-      actions.todoList(textEntered)
-      setTasks(store.list)
+      actions.todoList(textEntered);
       setTextEntered("");
     }
   }
 
   //Delete task by id value
   function deleteTask(id) {
-    actions.deleteTask(id)
-    setTasks(store.list)
+    actions.deleteTask(id);
   }
-
 
   return (
     <div>
@@ -53,7 +47,7 @@ export const Home = () => {
 
         <div className="todos-container-body flex-grow-1">
           <ul>
-            {tasks.map((task, index) => (
+            {store.list.map((task, index) => (
               <Inputs
                 key={index}
                 id={index}
@@ -65,9 +59,9 @@ export const Home = () => {
         </div>
 
         <div className="flex-grow-1">
-           {tasks.length === 0
-        ? "No tasks, add a task"
-        : `Number of Tasks: ${tasks.length}`}
+          {store.list.length === 0
+            ? "No tasks, add a task"
+            : `Number of Tasks: ${store.list.length}`}
         </div>
       </div>
     </div>
